@@ -14,11 +14,15 @@ CREATE SCHEMA identity;
 
 CREATE TABLE identity.users (
   id SERIAL PRIMARY KEY,
+  sub VARCHAR(255) NOT NULL,
   email VARCHAR(50) NOT NULL,
   first_name VARCHAR(50) NOT NULL,
   last_name VARCHAR(50) NOT NULL,
-  oauth_access_token BYTEA NOT NULL,
-  oauth_access_token_valid TIMESTAMP NOT NULL
+  picture bytea,
+  oauth_access_token VARCHAR(256) NOT NULL,
+  oauth_access_token_valid TIMESTAMP NOT NULL,
+  oauth_refresh_token VARCHAR(256) NOT NULL,
+  oauth_refresh_token valid TIMESTAMP NOT NULL
 );
 
 CREATE TABLE identity.roles (
