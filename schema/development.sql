@@ -22,7 +22,7 @@ CREATE TABLE identity.users (
   oauth_access_token VARCHAR(256) NOT NULL,
   oauth_access_token_valid TIMESTAMP NOT NULL,
   oauth_refresh_token VARCHAR(256) NOT NULL,
-  oauth_refresh_token valid TIMESTAMP NOT NULL
+  oauth_refresh_token_valid TIMESTAMP NOT NULL
 );
 
 CREATE TABLE identity.roles (
@@ -35,7 +35,7 @@ CREATE TABLE identity.roles (
 CREATE TABLE identity.users_roles (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES identity.users (id) ON UPDATE CASCADE ON DELETE CASCADE UNIQUE,
-  role_id INTEGER NOT NULL REFERENCES Identity.roles (id) ON UPDATE CASCADE ON DELETE CASCADE
+  role_id INTEGER NOT NULL REFERENCES identity.roles (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
