@@ -1,3 +1,5 @@
+\c code_library_development
+
 INSERT INTO book.designations (name) VALUES ('STS');
 INSERT INTO book.designations (name) VALUES ('SE');
 INSERT INTO book.designations (name) VALUES ('ID');
