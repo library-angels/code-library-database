@@ -89,33 +89,33 @@ class Book:
 
   def generate_sql(self):
     # publishers
-    print("INSERT INTO book.publishers (name) SELECT '{}' WHERE NOT EXISTS (SELECT * FROM book.publishers WHERE name = '{}');".format(self.publisher, self.publisher))
+    print("INSERT INTO publishers (name) SELECT '{}' WHERE NOT EXISTS (SELECT * FROM publishers WHERE name = '{}');".format(self.publisher, self.publisher))
 
     # subject_areas
     for i in self.subject_area:
-      print("INSERT INTO book.subject_areas (name) SELECT '{}' WHERE NOT EXISTS (SELECT * FROM book.subject_areas WHERE name = '{}');".format(i, i))
+      print("INSERT INTO subject_areas (name) SELECT '{}' WHERE NOT EXISTS (SELECT * FROM subject_areas WHERE name = '{}');".format(i, i))
 
     # authors
     for i in self.authors_editors:
-      print("INSERT INTO book.persons (first_name, last_name) SELECT '{}', '{}' WHERE NOT EXISTS (SELECT * FROM book.persons WHERE first_name = '{}' AND last_name = '{}');".format(i[0], i[1], i[0], i[1]))
+      print("INSERT INTO persons (first_name, last_name) SELECT '{}', '{}' WHERE NOT EXISTS (SELECT * FROM persons WHERE first_name = '{}' AND last_name = '{}');".format(i[0], i[1], i[0], i[1]))
 
     # books
-    print("INSERT INTO book.books \
+    print("INSERT INTO books \
       (isbn_13, issn, title, subtitle, description, cover, edition, release_year, pages, code_identifier, publisher_id, designation_id, series_id, language_id, physical_size_id) \
       VALUES \
       ('{}', {}, '{}', '{}', {}, {}, {}, {}, {}, '{}', {}, {}, {}, {}, {});"\
-      .format(self.isbn_13, self.issn, self.title, self.subtitle, self.description, self.cover, self.edition, self.release_year, self.pages, self.code_identifier, "(SELECT id FROM book.publishers WHERE name = '{}')".format(self.publisher), "(SELECT id FROM book.designations WHERE name = '{}')".format(self.designation), self.series, "(SELECT id FROM book.languages WHERE iso_code = '{}')".format(self.language), "(SELECT id FROM book.physical_sizes WHERE name = '{}')".format(self.physical_size)))
+      .format(self.isbn_13, self.issn, self.title, self.subtitle, self.description, self.cover, self.edition, self.release_year, self.pages, self.code_identifier, "(SELECT id FROM publishers WHERE name = '{}')".format(self.publisher), "(SELECT id FROM designations WHERE name = '{}')".format(self.designation), self.series, "(SELECT id FROM languages WHERE iso_code = '{}')".format(self.language), "(SELECT id FROM physical_sizes WHERE name = '{}')".format(self.physical_size)))
 
     # copies
-    print("INSERT INTO book.copies (book_id, status_id) VALUES ({}, 1);".format("(SELECT id FROM book.books WHERE title = '{}' AND subtitle = '{}')".format(self.title, self.subtitle)))
+    print("INSERT INTO copies (book_id, status_id) VALUES ({}, 1);".format("(SELECT id FROM books WHERE title = '{}' AND subtitle = '{}')".format(self.title, self.subtitle)))
 
     # authors -> books
     for i in self.authors_editors:
-      print("INSERT INTO book.books_authors (book_id, person_id) VALUES ({}, {});".format("(SELECT id FROM book.books WHERE title = '{}' AND subtitle = '{}')".format(self.title, self.subtitle), "(SELECT id FROM book.persons WHERE first_name = '{}' AND last_name = '{}')".format(i[0], i[1])))
+      print("INSERT INTO books_authors (book_id, person_id) VALUES ({}, {});".format("(SELECT id FROM books WHERE title = '{}' AND subtitle = '{}')".format(self.title, self.subtitle), "(SELECT id FROM persons WHERE first_name = '{}' AND last_name = '{}')".format(i[0], i[1])))
 
     # subject_areas -> books
     for i in self.subject_area:
-      print("INSERT INTO book.books_subject_areas (book_id, subject_area_id) VALUES ({}, {});".format("(SELECT id FROM book.books WHERE title = '{}' AND subtitle = '{}')".format(self.title, self.subtitle), "(SELECT id FROM book.subject_areas WHERE name = '{}')".format(i)))
+      print("INSERT INTO books_subject_areas (book_id, subject_area_id) VALUES ({}, {});".format("(SELECT id FROM books WHERE title = '{}' AND subtitle = '{}')".format(self.title, self.subtitle), "(SELECT id FROM subject_areas WHERE name = '{}')".format(i)))
     
 
 
