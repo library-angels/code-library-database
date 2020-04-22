@@ -42,14 +42,20 @@ class Book:
     self.publisher = row[4].replace('\'', '\'\'').strip()
 
     # designation
-    if 'sts' or 'STS' in row[6]:
+    if 'sts' in row[6] or 'STS' in row[6]:
       self.designation = 'STS'
-    elif 'se' or 'SE' in row[6]:
+    elif 'se' in row[6] or 'SE' in row[6]:
       self.designation = 'SE'
-    elif 'id' or 'ID' in row[6]:
+    elif 'id' in row[6] or 'ID' in row[6]:
       self.designation = 'ID'
-    elif 'pm' or 'PM' in row[6]:
+    elif 'pm' in row[6] or 'PM' in row[6]:
       self.designation = 'PM'
+    elif 'dh' in row[6] or 'DH' in row[6]:
+      self.designation = 'DH'
+    elif 'is' in row[6] or 'IS' in row[6]:
+      self.designation = 'IS'
+    elif 'xxl' in row[6] or 'XXL' in row[6]:
+      self.designation = 'XXL'
 
     # series
     self.series = 'NULL'
@@ -116,7 +122,6 @@ class Book:
     # subject_areas -> books
     for i in self.subject_area:
       print("INSERT INTO books_subject_areas (book_id, subject_area_id) VALUES ({}, {});".format("(SELECT id FROM books WHERE title = '{}' AND subtitle = '{}')".format(self.title, self.subtitle), "(SELECT id FROM subject_areas WHERE name = '{}')".format(i)))
-    
 
 
 if __name__ == '__main__':
