@@ -113,7 +113,8 @@ class Book:
       .format(self.isbn_13, self.issn, self.title, self.subtitle, self.description, self.cover, self.edition, self.release_year, self.pages, self.code_identifier, "(SELECT id FROM publishers WHERE name = '{}')".format(self.publisher), "(SELECT id FROM designations WHERE name = '{}')".format(self.designation), self.series, "(SELECT id FROM languages WHERE iso_code = '{}')".format(self.language), "(SELECT id FROM physical_sizes WHERE name = '{}')".format(self.physical_size)))
 
     # copies
-    print("INSERT INTO copies (book_id, status_id) VALUES ({}, 1);".format("(SELECT id FROM books WHERE title = '{}' AND subtitle = '{}')".format(self.title, self.subtitle)))
+    for i in range(0, self.copies):
+        print("INSERT INTO copies (book_id, status_id) VALUES ({}, 1);".format("(SELECT id FROM books WHERE title = '{}' AND subtitle = '{}')".format(self.title, self.subtitle)))
 
     # authors -> books
     for i in self.authors_editors:
