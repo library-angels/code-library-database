@@ -11,7 +11,7 @@ CREATE TABLE users (
   email VARCHAR(50) NOT NULL,
   first_name VARCHAR(50) NOT NULL,
   last_name VARCHAR(50) NOT NULL,
-  picture bytea,
+  picture VARCHAR(200),
   oauth_access_token VARCHAR(256) NOT NULL,
   oauth_access_token_valid TIMESTAMP NOT NULL,
   oauth_refresh_token VARCHAR(256) NOT NULL,
