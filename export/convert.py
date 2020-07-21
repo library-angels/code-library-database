@@ -43,21 +43,21 @@ class Book:
     # publisher
     self.publisher = row[4].replace('\'', '\'\'').strip()
 
-    # designation
+    # category
     if 'sts' in row[6] or 'STS' in row[6]:
-      self.designation = 'STS'
+      self.category = 'STS'
     elif 'se' in row[6] or 'SE' in row[6]:
-      self.designation = 'SE'
+      self.category = 'SE'
     elif 'id' in row[6] or 'ID' in row[6]:
-      self.designation = 'ID'
+      self.category = 'ID'
     elif 'pm' in row[6] or 'PM' in row[6]:
-      self.designation = 'PM'
+      self.category = 'PM'
     elif 'dh' in row[6] or 'DH' in row[6]:
-      self.designation = 'DH'
+      self.category = 'DH'
     elif 'is' in row[6] or 'IS' in row[6]:
-      self.designation = 'IS'
+      self.category = 'IS'
     elif 'xxl' in row[6] or 'XXL' in row[6]:
-      self.designation = 'XXL'
+      self.category = 'XXL'
 
     # series
     self.series = 'NULL'
@@ -109,10 +109,10 @@ class Book:
 
     # books
     f_sql.write("INSERT INTO books \
-      (isbn_13, issn, title, subtitle, description, cover, edition, release_year, pages, code_identifier, publisher_id, designation_id, series_id, language_id, physical_size_id) \
+      (isbn_13, issn, title, subtitle, description, cover, edition, release_year, pages, code_identifier, publisher_id, category_id, series_id, language_id, physical_size_id) \
       VALUES \
       ('{}', {}, '{}', '{}', {}, {}, {}, {}, {}, '{}', {}, {}, {}, {}, {});\n"\
-      .format(self.isbn_13, self.issn, self.title, self.subtitle, self.description, self.cover, self.edition, self.release_year, self.pages, self.code_identifier, "(SELECT id FROM publishers WHERE name = '{}')".format(self.publisher), "(SELECT id FROM designations WHERE name = '{}')".format(self.designation), self.series, "(SELECT id FROM languages WHERE iso_code = '{}')".format(self.language), "(SELECT id FROM physical_sizes WHERE name = '{}')".format(self.physical_size)))
+      .format(self.isbn_13, self.issn, self.title, self.subtitle, self.description, self.cover, self.edition, self.release_year, self.pages, self.code_identifier, "(SELECT id FROM publishers WHERE name = '{}')".format(self.publisher), "(SELECT id FROM categories WHERE name = '{}')".format(self.category), self.series, "(SELECT id FROM languages WHERE iso_code = '{}')".format(self.language), "(SELECT id FROM physical_sizes WHERE name = '{}')".format(self.physical_size)))
 
     # copies
     for i in range(0, self.copies):
