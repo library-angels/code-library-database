@@ -20,7 +20,7 @@ CREATE TABLE users (
 
 CREATE TABLE roles (
   id SERIAL PRIMARY KEY,
-  role_name VARCHAR(50) NOT NULL,
+  name VARCHAR(50) NOT NULL,
   access_manage_books BOOLEAN NOT NULL,
   access_manage_roles BOOLEAN NOT NULL
 );
@@ -65,7 +65,7 @@ CREATE TABLE series (
 CREATE TABLE languages (
   id SERIAL PRIMARY KEY,
   iso_code VARCHAR(7) NOT NULL,
-  language_name VARCHAR(200) NOT NULL
+  name VARCHAR(200) NOT NULL
 );
 
 CREATE TABLE physical_sizes (
