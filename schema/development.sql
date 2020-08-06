@@ -7,7 +7,7 @@ CREATE DATABASE code_library_development;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  sub VARCHAR(255) NOT NULL,
+  sub VARCHAR(255) NOT NULL UNIQUE,
   email VARCHAR(50) NOT NULL,
   first_name VARCHAR(50) NOT NULL,
   last_name VARCHAR(50) NOT NULL,
